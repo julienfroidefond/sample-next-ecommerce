@@ -5,7 +5,7 @@ export default function AdminDashboard() {
     <div>
       <h1 className="text-2xl font-semibold text-white">Dashboard</h1>
       <p className="mt-2 text-zinc-400">
-        Bienvenue dans l'espace d'administration.
+        Bienvenue dans l&apos;espace d&apos;administration.
       </p>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {[{ label: "Produits", value: "—", href: "/admin/produits" }].map((card) => (

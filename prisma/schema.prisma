@@ -1,6 +1,7 @@
 // https://pris.ly/d/prisma-schema-data-sources
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
