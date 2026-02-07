@@ -10,7 +10,7 @@ export default function Home() {
           Nos produits
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-          Découvrez une sélection soignée pour le bureau, l'audio et le quotidien.
+          Découvrez une sélection soignée pour le bureau, l&apos;audio et le quotidien.
         </p>
       </section>
 
