@@ -21,7 +21,24 @@ export async function findAllProducts(): Promise<Product[]> {
   const rows = await prisma.product.findMany({
     orderBy: { createdAt: "desc" },
   });
-  return rows.map((row) => ({
+  return rows.map((row) => mapRowToProduct(row));
+}
+
+function mapRowToProduct(row: {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  currency: string;
+  stock: number;
+  sku: string;
+  category: string;
+  brand: string;
+  images: unknown;
+  specs: unknown;
+}): Product {
+  return {
     id: row.id,
     name: row.name,
     slug: row.slug,
@@ -34,5 +51,11 @@ export async function findAllProducts(): Promise<Product[]> {
     brand: row.brand,
     images: mapImages(row.images),
     specs: mapSpecs(row.specs),
-  }));
+  };
+}
+
+export async function findProductBySlug(slug: string): Promise<Product | null> {
+  const row = await prisma.product.findUnique({ where: { slug } });
+  if (!row) return null;
+  return mapRowToProduct(row);
 }
