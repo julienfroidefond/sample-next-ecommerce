@@ -24,8 +24,8 @@ export function Nav({ cartSummary }: NavProps) {
               </Link>
             </li>
             <li>
-              <Link href="/demo-loading" className="hover:underline">
-                Démo loading
+              <Link href="/demo" className="hover:underline">
+                Démo
               </Link>
             </li>
             <li>
