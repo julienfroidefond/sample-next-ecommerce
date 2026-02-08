@@ -1,25 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { AddToCartButton } from "@/app/components/AddToCartButton";
+import { ProductTabs } from "@/app/components/ProductTabs";
 import {
   formatPrice,
-  formatSpecLabel,
-  formatSpecValue,
   formatStockLabel,
   isInStock,
 } from "@/domains/catalog/entity/product";
-import { getProductBySlug } from "@/domains/catalog/repository/productRepository";
+import {
+  getProductBySlug,
+  getProducts,
+} from "@/domains/catalog/repository/productRepository";
 
-const TAB_DESCRIPTION = "description";
-const TAB_SPECS = "specs";
-const VALID_TABS = [TAB_DESCRIPTION, TAB_SPECS] as const;
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((p) => ({ slug: p.slug }));
+}
 
 export default async function ProductPage(props: PageProps<"/produit/[slug]">) {
   const { slug } = await props.params;
-  const { tab: tabParam } = await props.searchParams;
-  const tab = VALID_TABS.includes(tabParam as (typeof VALID_TABS)[number])
-    ? (tabParam as (typeof VALID_TABS)[number])
-    : TAB_DESCRIPTION;
 
   const product = await getProductBySlug(slug);
 
@@ -83,50 +85,9 @@ export default async function ProductPage(props: PageProps<"/produit/[slug]">) {
             {product.name}
           </h1>
 
-          <div className="mt-4 flex gap-2 border-b border-zinc-200 dark:border-zinc-700">
-            <Link
-              href={`/produit/${slug}?tab=${TAB_DESCRIPTION}`}
-              className={`border-b-2 px-2 pb-2 text-sm font-medium transition-colors ${
-                tab === TAB_DESCRIPTION
-                  ? "border-zinc-900 text-zinc-900 dark:border-zinc-100 dark:text-zinc-100"
-                  : "border-transparent text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
-              }`}
-            >
-              Description
-            </Link>
-            <Link
-              href={`/produit/${slug}?tab=${TAB_SPECS}`}
-              className={`border-b-2 px-2 pb-2 text-sm font-medium transition-colors ${
-                tab === TAB_SPECS
-                  ? "border-zinc-900 text-zinc-900 dark:border-zinc-100 dark:text-zinc-100"
-                  : "border-transparent text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
-              }`}
-            >
-              Caractéristiques
-            </Link>
-          </div>
-          <div className="mt-4 text-zinc-600 dark:text-zinc-400">
-            {tab === TAB_DESCRIPTION && (
-              <p className="text-lg">{product.description}</p>
-            )}
-            {tab === TAB_SPECS && (
-              <dl className="space-y-2 text-sm">
-                {Object.entries(product.specs).map(([key, value]) =>
-                  value !== undefined && value !== null ? (
-                    <div key={key} className="flex justify-between gap-4">
-                      <dt className="text-zinc-500 dark:text-zinc-400">
-                        {formatSpecLabel(key)}
-                      </dt>
-                      <dd>{formatSpecValue(value)}</dd>
-                    </div>
-                  ) : null
-                )}
-                {Object.keys(product.specs).length === 0 && (
-                  <p className="text-zinc-500">Aucune caractéristique.</p>
-                )}
-              </dl>
-            )}
-          </div>
+          <Suspense fallback={<div className="mt-4 h-32 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />}>
+            <ProductTabs slug={slug} product={product} />
+          </Suspense>
 
           <div className="mt-6 flex items-baseline gap-3">
             <span className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
