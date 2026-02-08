@@ -13,8 +13,7 @@ import {
   getProducts,
 } from "@/domains/catalog/repository/productRepository";
 
-export const dynamic = "force-static";
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const products = await getProducts();
@@ -86,7 +85,11 @@ export default async function ProductPage(props: PageProps<"/produit/[slug]">) {
             {product.name}
           </h1>
 
-          <Suspense fallback={<div className="mt-4 h-32 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />}>
+          <Suspense
+            fallback={
+              <div className="mt-4 h-32 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
+            }
+          >
             <ProductTabs slug={slug} product={product} />
           </Suspense>
 
