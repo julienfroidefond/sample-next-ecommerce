@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AddToCartButton } from "@/app/components/AddToCartButton";
 import {
   formatPrice,
   formatStockLabel,
@@ -90,13 +91,13 @@ export default async function ProductPage(props: PageProps<"/produit/[slug]">) {
           </div>
 
           <div className="mt-8">
-            <button
-              type="button"
+            <AddToCartButton
               disabled={!inStock}
-              className="w-full rounded-xl bg-zinc-900 px-6 py-4 font-semibold text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
-            >
-              {inStock ? "Ajouter au panier" : "Indisponible"}
-            </button>
+              slug={product.slug}
+              name={product.name}
+              price={product.price}
+              currency={product.currency}
+            />
           </div>
 
           <p className="mt-6 text-xs text-zinc-500 dark:text-zinc-400">
