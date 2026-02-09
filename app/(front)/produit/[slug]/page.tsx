@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { AddToCartButton } from "@/app/components/AddToCartButton";
 import { ProductTabs } from "@/app/components/ProductTabs";
+import { SimilarProducts } from "@/app/components/SimilarProducts";
 import {
   formatPrice,
   formatStockLabel,
@@ -123,6 +124,8 @@ export default async function ProductPage(props: PageProps<"/produit/[slug]">) {
           </p>
         </div>
       </div>
+
+      <SimilarProducts slug={slug} />
     </div>
   );
 }

@@ -1,0 +1,22 @@
+import { getSimilarProductsBySlug } from "@/domains/catalog/repository/similarProductRepository";
+import { ProductCard } from "@/app/components/ProductCard";
+
+type Props = { slug: string };
+
+export async function SimilarProducts({ slug }: Props) {
+  const similars = await getSimilarProductsBySlug(slug);
+  if (similars.length === 0) return null;
+
+  return (
+    <section className="mt-16 border-t border-zinc-200 pt-12 dark:border-zinc-800">
+      <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        Produits similaires
+      </h2>
+      <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {similars.map(({ product }) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    </section>
+  );
+}
