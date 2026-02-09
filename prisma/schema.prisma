@@ -23,4 +23,44 @@ model Product {
   specs       Json     // Record<string, string | number | boolean>
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  cartItems         CartItem[]
+  similarFor       SimilarProduct[] @relation("SourceProduct")
+  similarBy        SimilarProduct[] @relation("SimilarProduct")
+}
+
+model Cart {
+  id        String   @id @default(cuid())
+  sessionId String?  // panier anonyme (cookie/session)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items CartItem[]
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int      @default(1)
+  name      String   // snapshot au moment de l'ajout
+  price     Float
+  currency  String
+
+  cart    Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId])
+}
+
+model SimilarProduct {
+  id              String  @id @default(cuid())
+  productId       String  // produit source (page sur laquelle on affiche les similaires)
+  similarProductId String  // produit similaire
+  score           Float?  // ordre / pertinence
+
+  product        Product @relation("SourceProduct", fields: [productId], references: [id], onDelete: Cascade)
+  similarProduct Product @relation("SimilarProduct", fields: [similarProductId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, similarProductId])
 }
