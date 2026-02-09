@@ -1,14 +1,11 @@
 import Link from "next/link";
-import { CartProviderWrapper } from "./(front)/CartProviderWrapper";
-import { CartSummary } from "./components/CartSummary";
 import { Footer } from "./components/Footer";
 import { Nav } from "./components/Nav";
 
-export default function NotFound() {
+export default async function NotFound() {
   return (
-    <CartProviderWrapper>
-      <div className="flex min-h-screen flex-col">
-        <Nav cartSummary={<CartSummary />} />
+    <div className="flex min-h-screen flex-col">
+      <Nav />
         <main className="flex-1">
           <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
             <div className="text-center">
@@ -29,6 +26,5 @@ export default function NotFound() {
         </main>
         <Footer />
       </div>
-    </CartProviderWrapper>
   );
 }

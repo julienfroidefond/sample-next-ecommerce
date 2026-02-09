@@ -14,8 +14,6 @@ import {
   getProducts,
 } from "@/domains/catalog/repository/productRepository";
 
-export const dynamic = "force-dynamic";
-
 export async function generateStaticParams() {
   const products = await getProducts();
   return products.map((p) => ({ slug: p.slug }));

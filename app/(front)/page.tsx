@@ -1,8 +1,6 @@
 import { ProductCard } from "../components/ProductCard";
 import { getProducts } from "@/domains/catalog/repository/productRepository";
 
-export const dynamic = "force-dynamic";
-
 export default async function Home() {
   const products = await getProducts();
   return (
