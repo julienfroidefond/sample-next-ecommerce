@@ -5,6 +5,9 @@ type Props = { slug: string };
 
 export async function SimilarProducts({ slug }: Props) {
   const similars = await getSimilarProductsBySlug(slug);
+
+  await new Promise((r) => setTimeout(r, 2000)); //Simulation de latence
+
   if (similars.length === 0) return null;
 
   return (
