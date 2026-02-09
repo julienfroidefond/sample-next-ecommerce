@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      { protocol: "https", hostname: "mock.shop", pathname: "/**" },
+      { protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" },
     ],
   },
 };
