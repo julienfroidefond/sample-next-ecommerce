@@ -1,10 +1,7 @@
 import Link from "next/link";
+import { CartSummary } from "@/app/components/CartSummary";
 
-type NavProps = {
-  cartSummary?: React.ReactNode;
-};
-
-export function Nav({ cartSummary }: NavProps) {
+export function Nav() {
   return (
     <header className="border-b border-zinc-200 dark:border-zinc-800">
       <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
@@ -37,7 +34,7 @@ export function Nav({ cartSummary }: NavProps) {
               </Link>
             </li>
           </ul>
-          {cartSummary}
+          <CartSummary />
         </div>
       </nav>
     </header>

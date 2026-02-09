@@ -8,16 +8,25 @@ export type CartItem = {
   quantity: number;
 };
 
+/** Panier persistant : id et sessionId pour la DB, items en domaine */
+export type Cart = {
+  id: string;
+  sessionId?: string | null;
+  items: CartItem[];
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
 // --- Règles métier ---
 
 export function addItemToCart(
   items: CartItem[],
-  item: Omit<CartItem, "quantity">
+  item: Omit<CartItem, "quantity">,
 ): CartItem[] {
   const existing = items.find((i) => i.slug === item.slug);
   if (existing) {
     return items.map((i) =>
-      i.slug === item.slug ? { ...i, quantity: i.quantity + 1 } : i
+      i.slug === item.slug ? { ...i, quantity: i.quantity + 1 } : i,
     );
   }
   return [...items, { ...item, quantity: 1 }];
