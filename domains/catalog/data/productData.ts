@@ -24,7 +24,7 @@ export async function findAllProducts(): Promise<Product[]> {
   return rows.map((row) => mapRowToProduct(row));
 }
 
-function mapRowToProduct(row: {
+export function mapRowToProduct(row: {
   id: string;
   name: string;
   slug: string;
