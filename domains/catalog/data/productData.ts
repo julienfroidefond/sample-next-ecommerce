@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import type { Product, ProductImages, ProductSpecs } from "@/domains/catalog/entity/product";
+import type { ProductUpdateInput } from "@/domains/catalog/entity/productSchema";
 
 function mapImages(images: unknown): ProductImages {
   const raw = images as { main?: string; gallery?: string[] } | null;
@@ -52,6 +53,28 @@ export function mapRowToProduct(row: {
     images: mapImages(row.images),
     specs: mapSpecs(row.specs),
   };
+}
+
+export async function findProductById(id: string): Promise<Product | null> {
+  const row = await prisma.product.findUnique({ where: { id } });
+  if (!row) return null;
+  return mapRowToProduct(row);
+}
+
+export async function updateProduct(
+  id: string,
+  data: ProductUpdateInput,
+): Promise<Product> {
+  const { imageUrl, ...fields } = data;
+
+  const current = await prisma.product.findUnique({ where: { id }, select: { images: true } });
+  const currentImages = mapImages(current?.images);
+  const images = imageUrl !== undefined
+    ? { ...currentImages, main: imageUrl }
+    : currentImages;
+
+  const row = await prisma.product.update({ where: { id }, data: { ...fields, images } });
+  return mapRowToProduct(row);
 }
 
 export async function findProductBySlug(slug: string): Promise<Product | null> {
