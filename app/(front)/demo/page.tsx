@@ -67,6 +67,21 @@ export default function DemoPage() {
 
         <section className="rounded-lg border border-zinc-200 p-6 dark:border-zinc-700">
           <h2 className="font-semibold text-zinc-900 dark:text-zinc-100">
+            unstable_cache
+          </h2>
+          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+            Cache serveur d&apos;une fonction coûteuse avec timing.
+          </p>
+          <Link
+            href="/demo/unstable-cache"
+            className="mt-3 inline-block rounded bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200"
+          >
+            Voir l&apos;exemple
+          </Link>
+        </section>
+
+        <section className="rounded-lg border border-zinc-200 p-6 dark:border-zinc-700">
+          <h2 className="font-semibold text-zinc-900 dark:text-zinc-100">
             Error boundary
           </h2>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
