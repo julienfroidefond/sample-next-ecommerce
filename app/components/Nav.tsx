@@ -27,14 +27,6 @@ export function Nav() {
                 Démo
               </Link>
             </li>
-            <li>
-              <Link
-                href="/admin"
-                className="text-zinc-500 hover:text-zinc-900 hover:underline dark:text-zinc-500 dark:hover:text-zinc-100"
-              >
-                Admin
-              </Link>
-            </li>
           </ul>
           <Suspense fallback={<div className="h-8 w-20" />}>
             <NavAuth />

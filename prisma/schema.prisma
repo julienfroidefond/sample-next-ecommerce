@@ -58,6 +58,7 @@ model User {
   email     String   @unique
   name      String?
   password  String?  // null si connexion OAuth
+  role      String   @default("user") // "user" | "admin"
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
