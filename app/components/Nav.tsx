@@ -33,6 +33,11 @@ export function Nav() {
                 Admin
               </Link>
             </li>
+            <li>
+              <Link href="/register" className="hover:underline">
+                Inscription
+              </Link>
+            </li>
           </ul>
           <CartSummary />
         </div>
