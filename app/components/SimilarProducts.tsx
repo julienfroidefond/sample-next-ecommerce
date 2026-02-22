@@ -1,9 +1,11 @@
+import { connection } from "next/server";
 import { getSimilarProductsBySlug } from "@/domains/catalog/repository/similarProductRepository";
 import { ProductCard } from "@/app/components/ProductCard";
 
 type Props = { slug: string };
 
 export async function SimilarProducts({ slug }: Props) {
+  await connection();
   const similars = await getSimilarProductsBySlug(slug);
 
   await new Promise((r) => setTimeout(r, 2000)); //Simulation de latence

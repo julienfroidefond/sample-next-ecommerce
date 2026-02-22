@@ -1,4 +1,4 @@
-export default function SimilarLoading() {
+export function SimilarSkeleton() {
   return (
     <section className="mt-16 border-t border-zinc-200 pt-12 dark:border-zinc-800">
       <div className="h-8 w-48 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
