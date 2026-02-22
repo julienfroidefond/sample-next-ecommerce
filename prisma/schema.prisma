@@ -53,6 +53,15 @@ model CartItem {
   @@unique([cartId, productId])
 }
 
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String?  // null si connexion OAuth
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model SimilarProduct {
   id              String  @id @default(cuid())
   productId       String  // produit source (page sur laquelle on affiche les similaires)
