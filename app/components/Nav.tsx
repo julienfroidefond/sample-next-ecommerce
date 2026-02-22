@@ -33,12 +33,13 @@ export function Nav() {
                 Admin
               </Link>
             </li>
-            <li>
-              <Link href="/register" className="hover:underline">
-                Inscription
-              </Link>
-            </li>
           </ul>
+          <Link
+            href="/login"
+            className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm font-medium hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          >
+            Connexion
+          </Link>
           <CartSummary />
         </div>
       </nav>
