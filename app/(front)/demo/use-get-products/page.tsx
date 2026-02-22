@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { Suspense } from "react";
 import { getProducts } from "@/domains/catalog/repository/productRepository";
 import { ProductsWithUse } from "./ProductsWithUse";
 
-export default function DemoUseGetProductsPage() {
+export default async function DemoUseGetProductsPage() {
+  await connection();
   const productsPromise = getProducts();
 
   return (

@@ -1,8 +1,10 @@
+import { connection } from "next/server";
 import { ProductCard } from "../components/ProductCard";
 import { SponsoredProducts } from "../components/SponsoredProducts";
 import { getProducts } from "@/domains/catalog/repository/productRepository";
 
 export default async function Home() {
+  await connection();
   const products = await getProducts();
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
