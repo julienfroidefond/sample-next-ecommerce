@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { CartSummary } from "@/app/components/CartSummary";
+import { NavAuth } from "@/app/components/NavAuth";
 
 export function Nav() {
   return (
@@ -34,12 +36,9 @@ export function Nav() {
               </Link>
             </li>
           </ul>
-          <Link
-            href="/login"
-            className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm font-medium hover:border-zinc-400 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
-          >
-            Connexion
-          </Link>
+          <Suspense fallback={<div className="h-8 w-20" />}>
+            <NavAuth />
+          </Suspense>
           <CartSummary />
         </div>
       </nav>
