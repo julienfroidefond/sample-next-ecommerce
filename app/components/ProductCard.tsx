@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { Product } from "@/domains/catalog/entity/product";
+import { PrefetchLink, type PrefetchMode } from "@/app/components/PrefetchLink";
 import {
   formatPrice,
   getProductPath,
@@ -10,17 +10,21 @@ import {
 
 export function ProductCard({
   product,
-  shouldPrefetch = true,
+  prefetchMode = "auto",
 }: {
   product: Product;
-  shouldPrefetch?: boolean;
+  prefetchMode?: PrefetchMode;
 }) {
   const inStock = isInStock(product);
   const lowStock = isLowStock(product);
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition hover:border-zinc-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-zinc-700">
-      <Link href={getProductPath(product)} prefetch={shouldPrefetch} className="flex flex-col flex-1">
+      <PrefetchLink
+        href={getProductPath(product)}
+        mode={prefetchMode}
+        className="flex flex-col flex-1"
+      >
         <div className="relative aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-800">
           <Image
             src={product.images.main}
@@ -62,7 +66,7 @@ export function ProductCard({
             </span>
           </div>
         </div>
-      </Link>
+      </PrefetchLink>
     </article>
   );
 }
