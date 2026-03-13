@@ -1,0 +1,19 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "demo": "Demo"
+  },
+  "home": {
+    "title": "Our products",
+    "subtitle": "Discover a curated selection for the office, audio and everyday life."
+  },
+  "product": {
+    "notFound": "Product not found.",
+    "ref": "Ref.",
+    "backHome": "Home"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

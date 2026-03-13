@@ -2,8 +2,13 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { CartSummary } from "@/app/components/CartSummary";
 import { NavAuth } from "@/app/components/NavAuth";
+import { LanguageSwitcher } from "@/app/components/LanguageSwitcher";
+import { getDictionary, getLocale } from "@/app/i18n/getDictionary";
 
-export function Nav() {
+export async function Nav() {
+  const locale = await getLocale();
+  const dict = await getDictionary(locale);
+
   return (
     <header className="border-b border-zinc-200 dark:border-zinc-800">
       <nav className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
@@ -14,20 +19,21 @@ export function Nav() {
           <ul className="flex gap-6">
             <li>
               <Link href="/" className="hover:underline">
-                Accueil
+                {dict.nav.home}
               </Link>
             </li>
             <li>
               <Link href="/about" className="hover:underline">
-                À propos
+                {dict.nav.about}
               </Link>
             </li>
             <li>
               <Link href="/demo" className="hover:underline">
-                Démo
+                {dict.nav.demo}
               </Link>
             </li>
           </ul>
+          <LanguageSwitcher currentLang={locale} />
           <Suspense fallback={<div className="h-8 w-20" />}>
             <NavAuth />
           </Suspense>
