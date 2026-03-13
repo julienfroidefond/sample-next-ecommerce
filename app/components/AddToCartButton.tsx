@@ -21,6 +21,8 @@ export function AddToCartButton({
   const [added, setAdded] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  //debugger;
+
   const handleClick = async () => {
     if (loading) return;
     setLoading(true);
