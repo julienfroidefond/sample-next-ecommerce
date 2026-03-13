@@ -21,8 +21,25 @@ const fontDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "News App",
-  description: "News App",
+  title: {
+    default: "News App",
+    template: "%s | News App",
+  },
+  description:
+    "Découvrez notre sélection de produits tech : audio, bureau et accessoires du quotidien.",
+  keywords: ["ecommerce", "tech", "audio", "bureau", "accessoires"],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "News App",
+    title: "News App",
+    description:
+      "Découvrez notre sélection de produits tech : audio, bureau et accessoires du quotidien.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
