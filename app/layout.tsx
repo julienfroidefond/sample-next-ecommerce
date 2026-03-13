@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ServiceWorkerRegister } from "./components/ServiceWorkerRegister";
 import { WebVitals } from "./components/WebVitals";
 
 const geistSans = Geist({
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -53,6 +55,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${fontDisplay.variable} min-h-screen antialiased`}
       >
         <WebVitals />
+        <ServiceWorkerRegister />
         {children}
       </body>
     </html>
