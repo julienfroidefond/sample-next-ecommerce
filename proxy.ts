@@ -26,6 +26,19 @@ function isFrontPath(pathname: string): boolean {
   return pathname === "/" || pathname.startsWith("/produit");
 }
 
+const LOCALE_COOKIE = "NEXT_LOCALE";
+const SUPPORTED_LOCALES = ["fr", "en"];
+const DEFAULT_LOCALE = "fr";
+
+function detectLocale(acceptLanguage: string | null): string {
+  if (!acceptLanguage) return DEFAULT_LOCALE;
+  // Parse "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7" → cherche la première langue supportée
+  const preferred = acceptLanguage
+    .split(",")
+    .map((part) => part.split(";")[0].trim().split("-")[0].toLowerCase());
+  return preferred.find((lang) => SUPPORTED_LOCALES.includes(lang)) ?? DEFAULT_LOCALE;
+}
+
 export default auth((req) => {
   if (req.nextUrl.pathname.startsWith("/admin")) {
     if (req.auth?.user?.role !== "admin") {
@@ -34,6 +47,16 @@ export default auth((req) => {
   }
 
   const res = NextResponse.next();
+
+  // Détection de la langue du navigateur si pas de cookie
+  if (!req.cookies.has(LOCALE_COOKIE)) {
+    const locale = detectLocale(req.headers.get("Accept-Language"));
+    res.cookies.set(LOCALE_COOKIE, locale, {
+      path: "/",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 365,
+    });
+  }
 
   if (isFrontPath(req.nextUrl.pathname)) {
     const forcedVariant = req.nextUrl.searchParams.get("ab_prefetch")?.toUpperCase();
