@@ -100,7 +100,7 @@ export default async function ProductPage(props: PageProps<"/produit/[slug]">) {
           <p className="text-xs font-medium uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             {product.brand} · {product.category}
           </p>
-          <h1 className="mt-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-4xl">
+          <h1 data-testid="product-name" className="mt-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100 sm:text-4xl">
             {product.name}
           </h1>
 
