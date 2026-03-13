@@ -1,0 +1,19 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "demo": "Démo"
+  },
+  "home": {
+    "title": "Nos produits",
+    "subtitle": "Découvrez une sélection soignée pour le bureau, l'audio et le quotidien."
+  },
+  "product": {
+    "notFound": "Produit introuvable.",
+    "ref": "Réf.",
+    "backHome": "Accueil"
+  },
+  "footer": {
+    "rights": "Tous droits réservés."
+  }
+}
