@@ -131,23 +131,18 @@ Construire des flux applicatifs complets, sécurisés et cohérents dans une arc
 
 ---
 
-#### Jour 4 – Performance, Production & Architecture avancée
+#### Jour 4 – Next.js Production-Ready
 
-**Objectif pédagogique global**  
-Rendre une application Next.js réellement « production-ready » : performante, observable, maintenable et industrialisable.
+**Objectif pédagogique global**
+Rendre une application Next.js réellement « production-ready » : performante, observable, multilingue et industrialisable.
 
 *À l'issue de la journée, les participants seront capables de :*
 
-- Mesurer la performance réelle via les Core Web Vitals (TTFB, LCP, INP)
-- Appliquer la règle d'or : moins de JavaScript = plus de performance
-- Réduire le JS client grâce à : Server Components, dynamic imports, analyse de bundle (`next build --analyze`)
-- Concevoir une stratégie de cache multi-niveaux (Next.js, CDN, cache applicatif)
-- Gérer correctement les metadata SEO et le SEO via Server Components
-- Debugger efficacement les Server Components en production
-- Comprendre le fonctionnement réel de `next build` : compilation, tree-shaking, pré-rendu
-- Sécuriser et gérer les variables d'environnement
-- Choisir une stratégie de déploiement : Vercel ou self-hosting
-- Mettre en place une architecture B2B scalable (feature folders, colocation, server-first)
-- Planifier une migration Pages Router → App Router
-- Identifier et corriger les anti-patterns de production
-- Réaliser un audit complet de performance et d'architecture sur une application existante
+- Ajouter et mesurer les Web Vitals (TTFB, LCP, INP, CLS, FCP) pour observer la performance réelle de l'application
+- Définir des métadonnées statiques et dynamiques via l'API `metadata` de Next.js et vérifier leur rendu dans le DOM
+- Créer et utiliser des variables d'environnement publiques (`NEXT_PUBLIC_*`) et server-only, en comprenant leurs implications de sécurité
+- Analyser les bundles de l'application (`next build --analyze`), identifier les dépendances trop volumineuses et appliquer des stratégies d'optimisation
+- Transformer l'application en PWA installable (manifest, icônes, splash screen, motifs) et la publier sur un store
+- Mettre en place des points d'arrêt côté front (navigateur) et côté back (Server Components / Route Handlers)
+- Intégrer i18next pour traduire le site en deux langues
+- Réaliser un audit de performance complet du site en conclusion des 4 jours
