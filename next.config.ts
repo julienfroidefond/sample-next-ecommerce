@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       { protocol: "https", hostname: "mock.shop", pathname: "/**" },
       { protocol: "https", hostname: "cdn.shopify.com", pathname: "/**" },
-      { protocol: "http", hostname: "mock-graphql.sample-next-ecommerce.orb.local", pathname: "/images/**" },
+      { protocol: "http", hostname: "graphqlstore.julienfroidefond.com", pathname: "/images/**" },
     ],
   },
 };
