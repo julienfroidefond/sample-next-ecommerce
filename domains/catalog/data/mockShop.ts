@@ -1,7 +1,11 @@
 import type { SponsoredProduct } from "@/domains/catalog/entity/sponsoredProduct";
 
-const MOCK_SHOP_GRAPHQL = "https://graphqlstore.julienfroidefond.com/api/2024-01/graphql.json";
-const MOCK_SHOP_PRODUCT_BASE = "https://graphqlstore.julienfroidefond.com/products";
+const MOCK_SHOP_GRAPHQL =
+  process.env.MOCK_SHOP_GRAPHQL_URL ??
+  "https://graphqlstore.julienfroidefond.com/api/2024-01/graphql.json";
+const MOCK_SHOP_PRODUCT_BASE =
+  process.env.MOCK_SHOP_PRODUCT_BASE_URL ??
+  "https://graphqlstore.julienfroidefond.com/products";
 
 const PRODUCTS_QUERY = `
   query GetProducts($first: Int!) {

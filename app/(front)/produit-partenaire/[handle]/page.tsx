@@ -45,6 +45,7 @@ export default async function ProduitPartenairePage(
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
+                unoptimized
               />
             ) : (
               <div className="flex h-full items-center justify-center text-zinc-400">

@@ -1,0 +1,7 @@
+services:
+  mock-graphql:
+    build: ./mock-graphql
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
