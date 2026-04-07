@@ -61,77 +61,52 @@ const yoga = createYoga({
   schema,
   graphqlEndpoint: "/api/2024-01/graphql.json",
   landingPage: false,
-  graphiql: {
-    endpoint: "/api/2024-01/graphql.json",
-    defaultQuery: `# 🎮 Bienvenue sur l'API GraphQL du Store Consoles !
-#
-# Voici quelques exemples de requêtes à tester :
-
-# ── Récupérer les 6 premiers produits ──────────────────
-query GetProducts {
-  products(first: 6) {
-    nodes {
-      id
-      title
-      handle
-      description
-      featuredImage {
-        url
-      }
-      priceRange {
-        minVariantPrice {
-          amount
-          currencyCode
-        }
-      }
-    }
-  }
-}
-
-# ── Récupérer un produit par son handle ────────────────
-# query GetProductByHandle {
-#   productByHandle(handle: "playstation-5-edition-standard") {
-#     id
-#     title
-#     description
-#     featuredImage {
-#       url
-#     }
-#     priceRange {
-#       minVariantPrice {
-#         amount
-#         currencyCode
-#       }
-#     }
-#   }
-# }
-
-# ── Avec une variable ─────────────────────────────────
-# query GetProductByHandle($handle: String!) {
-#   productByHandle(handle: $handle) {
-#     id
-#     title
-#     handle
-#     description
-#     featuredImage {
-#       url
-#     }
-#     priceRange {
-#       minVariantPrice {
-#         amount
-#         currencyCode
-#       }
-#     }
-#   }
-# }
-#
-# Variables (à coller dans le panneau "Variables") :
-# { "handle": "xbox-series-x" }
-`,
-  },
+  graphiql: false,
 });
 
+const GRAPHIQL_HTML = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>GraphQL Store Consoles</title>
+  <link rel="stylesheet" href="https://unpkg.com/graphiql@3.7.0/graphiql.min.css" />
+</head>
+<body style="margin:0;height:100vh">
+  <div id="graphiql" style="height:100vh"></div>
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/graphiql@3.7.0/graphiql.min.js"></script>
+  <script>
+    const root = ReactDOM.createRoot(document.getElementById('graphiql'));
+    const fetcher = GraphiQL.createFetcher({ url: '/api/2024-01/graphql.json' });
+    root.render(
+      React.createElement(GraphiQL, {
+        fetcher,
+        defaultTabs: [
+          {
+            query: '# Récupérer les 6 premiers produits\\nquery GetProducts {\\n  products(first: 6) {\\n    nodes {\\n      id\\n      title\\n      handle\\n      description\\n      featuredImage { url }\\n      priceRange {\\n        minVariantPrice { amount currencyCode }\\n      }\\n    }\\n  }\\n}',
+          },
+          {
+            query: '# Récupérer un produit par son handle\\nquery GetProductByHandle($handle: String!) {\\n  productByHandle(handle: $handle) {\\n    id\\n    title\\n    handle\\n    description\\n    featuredImage { url }\\n    priceRange {\\n      minVariantPrice { amount currencyCode }\\n    }\\n  }\\n}',
+            variables: '{ "handle": "xbox-series-x" }',
+          },
+          {
+            query: '# Juste les titres et prix des 3 premiers\\nquery GetProducts {\\n  products(first: 3) {\\n    nodes {\\n      title\\n      priceRange {\\n        minVariantPrice { amount currencyCode }\\n      }\\n    }\\n  }\\n}',
+          }
+        ],
+      })
+    );
+  </script>
+</body>
+</html>`;
+
 const server = createServer(async (req, res) => {
+  // Serve GraphiQL UI at root
+  if (req.url === "/" || req.url === "/index.html") {
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    res.end(GRAPHIQL_HTML);
+    return;
+  }
   // Serve static files from /images/*
   if (req.url?.startsWith("/images/")) {
     const filePath = join(PUBLIC_DIR, req.url);
