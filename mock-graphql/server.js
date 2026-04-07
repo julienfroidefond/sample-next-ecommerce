@@ -63,6 +63,71 @@ const yoga = createYoga({
   landingPage: false,
   graphiql: {
     endpoint: "/api/2024-01/graphql.json",
+    defaultQuery: `# 🎮 Bienvenue sur l'API GraphQL du Store Consoles !
+#
+# Voici quelques exemples de requêtes à tester :
+
+# ── Récupérer les 6 premiers produits ──────────────────
+query GetProducts {
+  products(first: 6) {
+    nodes {
+      id
+      title
+      handle
+      description
+      featuredImage {
+        url
+      }
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
+}
+
+# ── Récupérer un produit par son handle ────────────────
+# query GetProductByHandle {
+#   productByHandle(handle: "playstation-5-edition-standard") {
+#     id
+#     title
+#     description
+#     featuredImage {
+#       url
+#     }
+#     priceRange {
+#       minVariantPrice {
+#         amount
+#         currencyCode
+#       }
+#     }
+#   }
+# }
+
+# ── Avec une variable ─────────────────────────────────
+# query GetProductByHandle($handle: String!) {
+#   productByHandle(handle: $handle) {
+#     id
+#     title
+#     handle
+#     description
+#     featuredImage {
+#       url
+#     }
+#     priceRange {
+#       minVariantPrice {
+#         amount
+#         currencyCode
+#       }
+#     }
+#   }
+# }
+#
+# Variables (à coller dans le panneau "Variables") :
+# { "handle": "xbox-series-x" }
+`,
   },
 });
 
